@@ -121,13 +121,26 @@ namespace D_01_Bag
                     weight_Array[j] = Convert.ToInt32(weight_Array_Str[j]);
                 }
                 temp_Set.init_Item_Sets(profit_Array, weight_Array);
-                temp_Set.find_Max_Result_Dynamic_Programming();
+                //temp_Set.find_Max_Result_Dynamic_Programming();
                 data_Sets.Add(temp_Set);
+                listBox1.Items.Add(openFileDialog1.SafeFileName + "-" + i.ToString());
             }
             sr.Close();
             File.Delete("test.txt");
+            
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int index = listBox1.SelectedIndex;
+            data_Sets[index].find_Max_Result_Dynamic_Programming();
+            textBox2.Text = data_Sets[index].get_Dynamic_Result().ToString();
+        }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int index = listBox1.SelectedIndex;
+            data_Sets[index].find_Max_Result_Dynamic_Programming();
+        }
     }
 }

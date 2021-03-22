@@ -8,6 +8,7 @@ namespace D_01_Bag
     {
         private int item_Count;
         private int bag_Cubage;
+        private int best_Result;
         private item_Set[] item_Sets;
         private int[] selected_Items;
         private int[,] dynamic_Result_Array;
@@ -17,6 +18,12 @@ namespace D_01_Bag
             bag_Cubage = bC;
             item_Sets = new item_Set[item_Count];
             selected_Items = new int[item_Count];
+            best_Result = 0;
+        }
+
+        public int get_Dynamic_Result()
+        {
+            return dynamic_Result_Array[item_Count, bag_Cubage];
         }
 
         public void init_Item_Sets(int[] profit,int[] weight)
@@ -58,9 +65,23 @@ namespace D_01_Bag
 
         }
 
+        public void find_Max_Result_Recall()
+        {
 
+        }
 
+        private void back_Trace(int group_Id,int[] select,int profit_Now,int weight_Now)
+        {
+            if (group_Id == item_Count)
+            {
 
+            }
+            else
+            {
+
+            }
+        }
+        
 
     }
 }
