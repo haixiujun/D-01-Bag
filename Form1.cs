@@ -24,7 +24,7 @@ namespace D_01_Bag
             data_Set_File_Path = "";
             temp_Data = "";
             file_Lines_Count = 0;
-            data_Sets = new List<data_Set_Block>;
+            data_Sets = new List<data_Set_Block>();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -40,6 +40,7 @@ namespace D_01_Bag
         {
             temp_Data = "";
             String line = "";
+            file_Lines_Count = 0;
             try
             {
                 using (StreamReader sr = new StreamReader(data_Set_File_Path))
@@ -86,24 +87,40 @@ namespace D_01_Bag
             StreamReader sr = new StreamReader("test.txt");
             for (int i = 0; i < group_Counts; i++)
             {
-                data_Set_Block temp_Set = new data_Set_Block();
+                data_Set_Block temp_Set;
                 temp = sr.ReadLine();
                 temp = sr.ReadLine();
                 //处理d和c
                 string[] blocks = temp.Split(",");
                 string d_Str = blocks[0].Split("*")[1];
                 string c_Str = blocks[1].Split(" ").Last();
+
                 c_Str = c_Str.Substring(0, c_Str.Length - 1);
-                MessageBox.Show(d_Str+" "+c_Str);
+
+                int temp_d = Convert.ToInt32(d_Str);
+                int temp_c = Convert.ToInt32(c_Str);
+                temp_Set = new data_Set_Block(temp_d, temp_c );
+
                 temp = sr.ReadLine();
                 temp = sr.ReadLine();
                 //处理profit
-
+                temp = temp.Substring(0, temp.Length - 1);
+                string[] profit_Array_Str = temp.Split(",");
                 temp = sr.ReadLine();
                 temp = sr.ReadLine();
                 //处理weight
+                temp = temp.Substring(0, temp.Length - 1);
+                string[] weight_Array_Str = temp.Split(",");
 
-
+                int[] profit_Array = new int[profit_Array_Str.Length];
+                int[] weight_Array = new int[weight_Array_Str.Length];
+                for (int j = 0; j < profit_Array_Str.Length; j++)
+                {
+                    profit_Array[j] = Convert.ToInt32(profit_Array_Str[j]);
+                    weight_Array[j] = Convert.ToInt32(weight_Array_Str[j]);
+                }
+                temp_Set.init_Item_Sets(profit_Array, weight_Array);
+                data_Sets.Add(temp_Set);
             }
             sr.Close();
             File.Delete("test.txt");
