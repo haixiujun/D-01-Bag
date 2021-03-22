@@ -38,7 +38,8 @@ namespace D_01_Bag
             // 
             this.textBox1.Location = new System.Drawing.Point(13, 13);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1118, 23);
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(1119, 23);
             this.textBox1.TabIndex = 0;
             // 
             // button1
@@ -49,6 +50,7 @@ namespace D_01_Bag
             this.button1.TabIndex = 1;
             this.button1.Text = "选择文件";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // openFileDialog1
             // 
@@ -58,7 +60,7 @@ namespace D_01_Bag
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1115, 549);
+            this.ClientSize = new System.Drawing.Size(1248, 549);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Name = "Form1";
