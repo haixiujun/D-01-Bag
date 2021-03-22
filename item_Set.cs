@@ -8,12 +8,24 @@ namespace D_01_Bag
     {
         private int[] profit;
         private int[] weight;
+        private double radio;
         private int[] selected;
         public item_Set()
         {
             profit = new int[3];
             weight = new int[3];
             selected = new int[3];
+            radio = 0.0;
+        }
+
+        public void init_Radio()
+        {
+            radio = (profit[2] * 1.0) / (weight[2]);
+        }
+
+        public double get_Radio()
+        {
+            return radio;
         }
         public void init_Profit(int p1,int p2,int p3)
         {

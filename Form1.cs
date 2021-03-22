@@ -154,5 +154,11 @@ namespace D_01_Bag
             Form2 form2 = new Form2(this, listBox1.SelectedIndex);
             form2.Show();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            third_Sort third = new third_Sort(data_Sets[listBox1.SelectedIndex]);
+            third.Show();
+        }
     }
 }
