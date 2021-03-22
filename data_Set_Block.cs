@@ -4,7 +4,7 @@ using System.Text;
 
 namespace D_01_Bag
 {
-    class data_Set_Block
+    public class data_Set_Block
     {
         private int item_Count;
         private int bag_Cubage;
@@ -21,6 +21,16 @@ namespace D_01_Bag
             selected_Items = new int[item_Count];
             temp_Selected = new int[item_Count];
             best_Result = 0;
+        }
+
+        public int get_Item_Count()
+        {
+            return item_Count;
+        }
+
+        public item_Set get_Item(int i)
+        {
+            return item_Sets[i];
         }
 
         public int get_Dynamic_Result()

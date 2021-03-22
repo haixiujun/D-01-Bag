@@ -27,6 +27,11 @@ namespace D_01_Bag
             data_Sets = new List<data_Set_Block>();
         }
 
+        public data_Set_Block get_Data_Block(int i)
+        {
+            return data_Sets[i];
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
@@ -142,6 +147,12 @@ namespace D_01_Bag
             int index = listBox1.SelectedIndex;
             data_Sets[index].find_Max_Result_Recall();
             textBox2.Text = data_Sets[index].get_Recall_Result().ToString();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2(this, listBox1.SelectedIndex);
+            form2.Show();
         }
     }
 }

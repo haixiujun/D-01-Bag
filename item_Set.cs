@@ -4,7 +4,7 @@ using System.Text;
 
 namespace D_01_Bag
 {
-    class item_Set
+    public class item_Set
     {
         private int[] profit;
         private int[] weight;
