@@ -140,7 +140,8 @@ namespace D_01_Bag
         private void button3_Click(object sender, EventArgs e)
         {
             int index = listBox1.SelectedIndex;
-            data_Sets[index].find_Max_Result_Dynamic_Programming();
+            data_Sets[index].find_Max_Result_Recall();
+            textBox2.Text = data_Sets[index].get_Recall_Result().ToString();
         }
     }
 }
