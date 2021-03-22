@@ -60,6 +60,7 @@ namespace D_01_Bag
             catch (Exception e)
             {
                 MessageBox.Show("Read Error!");
+                MessageBox.Show(e.Message);
             }
         }
            
@@ -120,6 +121,7 @@ namespace D_01_Bag
                     weight_Array[j] = Convert.ToInt32(weight_Array_Str[j]);
                 }
                 temp_Set.init_Item_Sets(profit_Array, weight_Array);
+                temp_Set.find_Max_Result_Dynamic_Programming();
                 data_Sets.Add(temp_Set);
             }
             sr.Close();

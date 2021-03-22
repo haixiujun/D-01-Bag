@@ -9,12 +9,14 @@ namespace D_01_Bag
         private int item_Count;
         private int bag_Cubage;
         private item_Set[] item_Sets;
-
+        private int[] selected_Items;
+        private int[,] dynamic_Result_Array;
         public data_Set_Block(int iC,int bC)
         {
             item_Count = iC;
             bag_Cubage = bC;
             item_Sets = new item_Set[item_Count];
+            selected_Items = new int[item_Count];
         }
 
         public void init_Item_Sets(int[] profit,int[] weight)
@@ -26,6 +28,36 @@ namespace D_01_Bag
                 item_Sets[i].init_Weight(weight[i * 3], weight[i * 3+1], weight[i * 3+2]);
             }
         }
+
+        public void find_Max_Result_Dynamic_Programming()
+        {
+            dynamic_Result_Array = new int[item_Count + 1, bag_Cubage + 1];
+            int num1 = 0;
+            int num2 = 0;
+            for (int row = 1; row < item_Count + 1; row ++)
+            {
+
+                for(int col = 1; col < bag_Cubage + 1; col++)
+                {
+                    for(int i = 0; i < 3; i++)
+                    {
+                        if (col >= item_Sets[row-1].get_Weight(i))
+                        {
+                            num1 = dynamic_Result_Array[row - 1, col];
+                            num2 = dynamic_Result_Array[row - 1, col - item_Sets[row - 1].get_Weight(i)] + item_Sets[row - 1].get_Profit(i);
+                            num1 = Math.Max(num1, num2);
+                            dynamic_Result_Array[row,col] = Math.Max(num1, dynamic_Result_Array[row, col]);
+                        }
+                        else
+                        {
+                            dynamic_Result_Array[row, col] = Math.Max(dynamic_Result_Array[row, col],dynamic_Result_Array[row-1, col]);
+                        }
+                    }  
+                }
+            }
+
+        }
+
 
 
 
