@@ -17,12 +17,14 @@ namespace D_01_Bag
         private string temp_Data;
         private int file_Lines_Count;
         private int group_Counts;
+        private List<data_Set_Block> data_Sets; 
         public Form1()
         {
             InitializeComponent();
             data_Set_File_Path = "";
             temp_Data = "";
             file_Lines_Count = 0;
+            data_Sets = new List<data_Set_Block>;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -51,6 +53,7 @@ namespace D_01_Bag
                             file_Lines_Count++;
                         } 
                     }
+                    temp_Data = temp_Data.Substring(0, temp_Data.Length - 1);
                 }
             }
             catch (Exception e)
@@ -61,13 +64,18 @@ namespace D_01_Bag
            
         private void cut_Data_Set()
         {
-            file_Lines_Count--;
+            file_Lines_Count -= 2;
+            MessageBox.Show(file_Lines_Count.ToString());
             int first_Line_End_Index = temp_Data.IndexOf('\n');
-            string temp = "";
             temp_Data = temp_Data.Remove(0, first_Line_End_Index + 1);
-            StreamWriter sw = new StreamWriter("test.txt");
-            sw.Write(temp_Data);
+            int last_Line_Start_Index = temp_Data.LastIndexOf('\n');
+            temp_Data = temp_Data.Substring(0, last_Line_Start_Index);
 
+            string temp = "";
+            StreamWriter sw = new StreamWriter("test.txt");
+
+            sw.Write(temp_Data);
+            sw.Close();
             
             if ( file_Lines_Count % 6 != 0)
             {
@@ -78,10 +86,15 @@ namespace D_01_Bag
             StreamReader sr = new StreamReader("test.txt");
             for (int i = 0; i < group_Counts; i++)
             {
+                data_Set_Block temp_Set = new data_Set_Block();
                 temp = sr.ReadLine();
                 temp = sr.ReadLine();
                 //处理d和c
-
+                string[] blocks = temp.Split(",");
+                string d_Str = blocks[0].Split("*")[1];
+                string c_Str = blocks[1].Split(" ").Last();
+                c_Str = c_Str.Substring(0, c_Str.Length - 1);
+                MessageBox.Show(d_Str+" "+c_Str);
                 temp = sr.ReadLine();
                 temp = sr.ReadLine();
                 //处理profit
@@ -92,6 +105,7 @@ namespace D_01_Bag
 
 
             }
+            sr.Close();
             File.Delete("test.txt");
         }
 
