@@ -25,6 +25,27 @@ namespace D_01_Bag
             best_Result = 0;
         }
 
+        public int[] get_Selected_Array()
+        {
+            return temp_Selected;
+        }
+
+        private void clone_To_Selected_Dy()
+        {
+            for(int i = 0; i < item_Count; i++)
+            {
+                temp_Selected[i] = selected_Items_Dynamic[i];
+            }
+        }
+
+        private void clone_To_Selected_Rc()
+        {
+            for(int i = 0; i < item_Count; i++)
+            {
+                temp_Selected[i] = selected_Items_Recall[i];
+            }
+        }
+
         public int get_Item_Count()
         {
             return item_Count;
@@ -83,7 +104,7 @@ namespace D_01_Bag
                 }
             }
             get_Result_Dynamic();
-
+            clone_To_Selected_Dy();
         }
 
         public void find_Max_Result_Recall()
@@ -93,6 +114,7 @@ namespace D_01_Bag
                 selected_Items_Recall[i] = -1;
             }
             back_Trace(0, 0, 0);
+            clone_To_Selected_Rc();
         }
 
         private void back_Trace(int group_Id,int profit_Now,int weight_Now)
