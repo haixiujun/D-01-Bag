@@ -10,15 +10,17 @@ namespace D_01_Bag
         private int bag_Cubage;
         private int best_Result;
         private item_Set[] item_Sets;
-        private int[] selected_Items;
+        private int[] selected_Items_Recall;
         private int[] temp_Selected;
+        private int[] selected_Items_Dynamic;
         private int[,] dynamic_Result_Array;
         public data_Set_Block(int iC,int bC)
         {
             item_Count = iC;
             bag_Cubage = bC;
             item_Sets = new item_Set[item_Count];
-            selected_Items = new int[item_Count];
+            selected_Items_Recall = new int[item_Count];
+            selected_Items_Dynamic = new int[item_Count];
             temp_Selected = new int[item_Count];
             best_Result = 0;
         }
@@ -80,6 +82,7 @@ namespace D_01_Bag
                     }  
                 }
             }
+            get_Result_Dynamic();
 
         }
 
@@ -87,7 +90,7 @@ namespace D_01_Bag
         {
             for(int i = 0; i < item_Count; i++)
             {
-                selected_Items[i] = -1;
+                selected_Items_Recall[i] = -1;
             }
             back_Trace(0, 0, 0);
         }
@@ -100,7 +103,7 @@ namespace D_01_Bag
                 {
                     for(int i = 0; i < item_Count; i++)
                     {
-                        selected_Items[i] = temp_Selected[i];
+                        selected_Items_Recall[i] = temp_Selected[i];
                     }
                     best_Result = profit_Now;
                 }
@@ -120,6 +123,48 @@ namespace D_01_Bag
                 temp_Selected[group_Id] = -1;
                 back_Trace(group_Id + 1, profit_Now, weight_Now);
             }
+        }
+
+        private void get_Result_Dynamic()
+        {
+            int col = bag_Cubage;
+            for(int i = item_Count; i > 0&&col>0; i--)
+            {
+                if(dynamic_Result_Array[i,col]== dynamic_Result_Array[i, col-1])
+                {
+                    col--;
+                    i++;
+                }
+                else if(dynamic_Result_Array[i, col] == dynamic_Result_Array[i - 1, col])
+                {
+                    selected_Items_Dynamic[i-1] = -1;
+                }
+                else
+                {
+                    for(int j = 0; j < 3; j++)
+                    {
+                        int temp_Weight = item_Sets[i-1].get_Weight(j);
+                        int temp_Profit = item_Sets[i-1].get_Profit(j);
+                        if ((dynamic_Result_Array[i, col] - temp_Profit) == dynamic_Result_Array[i - 1, col - temp_Weight])
+                        {
+                            col -= temp_Weight;
+                            selected_Items_Dynamic[i-1] = j+1;
+                            j = 4;
+                        }
+                    }
+                }
+            }
+
+        }
+        public string get_Dynamic_Result_Str()
+        {
+            string temp = "";
+            for(int i = 0; i < item_Count-1; i++)
+            {
+                temp += (selected_Items_Dynamic[i].ToString()+"→");
+            }
+            temp += selected_Items_Dynamic[item_Count - 1];
+            return temp;
         }
         
 

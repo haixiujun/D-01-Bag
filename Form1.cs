@@ -140,6 +140,7 @@ namespace D_01_Bag
             int index = listBox1.SelectedIndex;
             data_Sets[index].find_Max_Result_Dynamic_Programming();
             textBox2.Text = data_Sets[index].get_Dynamic_Result().ToString();
+            richTextBox1.Text = data_Sets[index].get_Dynamic_Result_Str();
         }
 
         private void button3_Click(object sender, EventArgs e)
