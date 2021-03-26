@@ -35,7 +35,7 @@ namespace D_01_Bag
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1240, 626);
+            this.ClientSize = new System.Drawing.Size(1330, 636);
             this.Name = "Form2";
             this.Text = "Form2";
             this.Shown += new System.EventHandler(this.Form2_Shown);

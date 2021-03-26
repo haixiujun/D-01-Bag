@@ -71,8 +71,9 @@ namespace D_01_Bag
            
         private void cut_Data_Set()
         {
+            data_Sets.Clear();
+            listBox1.Items.Clear();
             file_Lines_Count -= 2;
-            MessageBox.Show(file_Lines_Count.ToString());
             int first_Line_End_Index = temp_Data.IndexOf('\n');
             temp_Data = temp_Data.Remove(0, first_Line_End_Index + 1);
             int last_Line_Start_Index = temp_Data.LastIndexOf('\n');
@@ -138,7 +139,10 @@ namespace D_01_Bag
         private void button2_Click(object sender, EventArgs e)
         {
             int index = listBox1.SelectedIndex;
+            DateTime dt = DateTime.Now;
             data_Sets[index].find_Max_Result_Dynamic_Programming();
+            DateTime dtt = DateTime.Now;
+            textBox3.Text = Convert.ToString((dtt - dt));
             textBox2.Text = data_Sets[index].get_Dynamic_Result().ToString();
             richTextBox1.Text = data_Sets[index].get_Dynamic_Result_Str();
         }
@@ -146,8 +150,12 @@ namespace D_01_Bag
         private void button3_Click(object sender, EventArgs e)
         {
             int index = listBox1.SelectedIndex;
+            DateTime dt = DateTime.Now;
             data_Sets[index].find_Max_Result_Recall();
+            DateTime dtt = DateTime.Now;
+            textBox3.Text = Convert.ToString((dtt - dt));
             textBox2.Text = data_Sets[index].get_Recall_Result().ToString();
+            
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -160,6 +168,21 @@ namespace D_01_Bag
         {
             third_Sort third = new third_Sort(data_Sets[listBox1.SelectedIndex]);
             third.Show();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            out_Put_Data out_Obj = new out_Put_Data(data_Sets[listBox1.SelectedIndex]);
+            folderBrowserDialog1.ShowDialog();
+            out_Obj.out_To_Txt(folderBrowserDialog1.SelectedPath + "//" + openFileDialog1.SafeFileName.Split(".")[0] + "_result"+listBox1.SelectedIndex+".txt");
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            out_Put_Data out_Obj = new out_Put_Data(data_Sets[listBox1.SelectedIndex]);
+            folderBrowserDialog1.ShowDialog();
+            out_Obj.out_To_Excel(folderBrowserDialog1.SelectedPath + "//" + openFileDialog1.SafeFileName.Split(".")[0] + "_result" + listBox1.SelectedIndex+".xlsx");
         }
     }
 }
