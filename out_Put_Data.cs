@@ -97,7 +97,6 @@ namespace D_01_Bag
                 }
                 sr.WriteLine(line);
             }
-            
             sr.Close();
         }
 

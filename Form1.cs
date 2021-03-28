@@ -197,7 +197,7 @@ namespace D_01_Bag
             //获取结束时间
             DateTime dtt = DateTime.Now;
             //求使用时间
-            textBox3.Text = Convert.ToString((dtt - dt));
+            textBox3.Text = Convert.ToString((dtt - dt).TotalSeconds);
             //获取动态规划法最终结果
             textBox2.Text = data_Sets[index].get_Dynamic_Result().ToString();
             //显示结果
@@ -216,7 +216,7 @@ namespace D_01_Bag
             //获取j结束时间
             DateTime dtt = DateTime.Now;
             //求解使用时间
-            textBox3.Text = Convert.ToString((dtt - dt));
+            textBox3.Text = Convert.ToString((dtt - dt).TotalSeconds);
             //显示结果
             textBox2.Text = data_Sets[index].get_Recall_Result().ToString();
             int count = data_Sets[index].get_Selected_Array().Length;
