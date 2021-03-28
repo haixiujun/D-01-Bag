@@ -6,6 +6,8 @@ namespace D_01_Bag
 {
     public class data_Set_Block
     {
+        //程序运行时间
+        private double process_Time;
         //数据集中的数据组数
         private int item_Count;
         //背包容量
@@ -39,6 +41,12 @@ namespace D_01_Bag
         public int[] get_Selected_Array()
         {
             return temp_Selected;
+        }
+
+        //获取程序运行时间
+        public double get_Process_Time()
+        {
+            return process_Time;
         }
 
         //动态规划法选择情况克隆到最终结果
@@ -98,6 +106,7 @@ namespace D_01_Bag
         //动态规划法获取最优数据
         public void find_Max_Result_Dynamic_Programming()
         {
+            DateTime start_Time = DateTime.Now;
             //首先初始化结果数组
             dynamic_Result_Array = new int[item_Count + 1, bag_Cubage + 1];
             //存储几个选择的各自结果
@@ -128,13 +137,18 @@ namespace D_01_Bag
             get_Result_Dynamic();
             //将选择情况克隆
             clone_To_Selected_Dy();
+            best_Result = get_Dynamic_Result();
+            DateTime end_Time = DateTime.Now;
+            process_Time = (end_Time - start_Time).TotalSeconds;
+
         }
 
         //回溯法求解最大结果
         public void find_Max_Result_Recall()
         {
+            DateTime start_Time = DateTime.Now;
             //初始化选择数组
-            for(int i = 0; i < item_Count; i++)
+            for (int i = 0; i < item_Count; i++)
             {
                 selected_Items_Recall[i] = -1;
             }
@@ -142,6 +156,8 @@ namespace D_01_Bag
             back_Trace(0, 0, 0);
             //将选择情况克隆
             clone_To_Selected_Rc();
+            DateTime end_Time = DateTime.Now;
+            process_Time = (end_Time - start_Time).TotalSeconds;
         }
 
         //递归函数

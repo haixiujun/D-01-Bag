@@ -41,20 +41,22 @@ namespace D_01_Bag
             selected = data_Set_Block.get_Selected_Array();
             XSSFWorkbook sheets = new XSSFWorkbook();
             ISheet sheet0 = sheets.CreateSheet("Result");
-            sheet0.CreateRow(0).CreateCell(0).SetCellValue("Selected Index");
-            sheet0.GetRow(0).CreateCell(1).SetCellValue("Selected Data");
+            sheet0.CreateRow(0).CreateCell(0).SetCellValue(data_Set_Block.get_Recall_Result().ToString());
+            sheet0.GetRow(0).CreateCell(1).SetCellValue(data_Set_Block.get_Process_Time().ToString());
+            sheet0.CreateRow(1).CreateCell(0).SetCellValue("Selected Index");
+            sheet0.GetRow(1).CreateCell(1).SetCellValue("Selected Data");
             for (int i = 0; i < lines; i++)
             {
                 if (selected[i] == -1)
                 {
-                    sheet0.CreateRow(i + 1).CreateCell(0).SetCellValue("-1");
-                    sheet0.GetRow(i + 1).CreateCell(1).SetCellValue("Null");
+                    sheet0.CreateRow(i + 2).CreateCell(0).SetCellValue("-1");
+                    sheet0.GetRow(i + 2).CreateCell(1).SetCellValue("Null");
                 }
                 else
                 {
-                    sheet0.CreateRow(i + 1).CreateCell(0).SetCellValue(selected[i].ToString());
+                    sheet0.CreateRow(i + 2).CreateCell(0).SetCellValue(selected[i].ToString());
                     string temp = "(" + data_Set_Block.get_Item(i).get_Profit(selected[i] - 1).ToString() + "," + data_Set_Block.get_Item(i).get_Weight(selected[i] - 1).ToString() + ")";
-                    sheet0.GetRow(i + 1).CreateCell(1).SetCellValue(temp);
+                    sheet0.GetRow(i + 2).CreateCell(1).SetCellValue(temp);
                 }
                 
             }
@@ -79,6 +81,9 @@ namespace D_01_Bag
             string line = "";
             selected = data_Set_Block.get_Selected_Array();
             StreamWriter sr = new StreamWriter(file_Path);
+            line = data_Set_Block.get_Recall_Result().ToString() + " ";
+            line += data_Set_Block.get_Process_Time().ToString();
+            sr.WriteLine(line);
             for (int i = 0; i < lines; i++)
             {
                 line = "";
@@ -92,6 +97,7 @@ namespace D_01_Bag
                 }
                 sr.WriteLine(line);
             }
+            
             sr.Close();
         }
 
