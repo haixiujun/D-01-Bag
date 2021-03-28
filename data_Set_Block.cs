@@ -150,6 +150,7 @@ namespace D_01_Bag
             //递归出口是当前深度到达最深
             if (group_Id == item_Count)
             {
+                //当前结果大于当前最优
                 if (profit_Now > best_Result)
                 {
                     for(int i = 0; i < item_Count; i++)
@@ -162,7 +163,7 @@ namespace D_01_Bag
             }
             else
             {
-
+                //在当前组分别进行下一步
                 for(int i = 0; i < 3; i++)
                 {
                     temp_Selected[group_Id] = i;
@@ -171,6 +172,7 @@ namespace D_01_Bag
                         back_Trace(group_Id + 1, profit_Now + item_Sets[group_Id].get_Profit(i), weight_Now + item_Sets[group_Id].get_Weight(i));
                     }
                 }
+                //不选择当前组进行下一步
                 temp_Selected[group_Id] = -1;
                 back_Trace(group_Id + 1, profit_Now, weight_Now);
             }
@@ -182,22 +184,25 @@ namespace D_01_Bag
             int col = bag_Cubage;
             for(int i = item_Count; i > 0&&col>0; i--)
             {
+                //当前价值等于背包容量-1时
                 if(dynamic_Result_Array[i,col]== dynamic_Result_Array[i, col-1])
                 {
                     col--;
                     i++;
                 }
+                //当前价值等于当前物品组不选并且同背包容量时
                 else if(dynamic_Result_Array[i, col] == dynamic_Result_Array[i - 1, col])
                 {
                     selected_Items_Dynamic[i-1] = -1;
                 }
                 else
                 {
-                    //计算数据组选择的情况
+                    //计算当前物品组选择的情况
                     for (int j = 0; j < 3; j++)
                     {
                         int temp_Weight = item_Sets[i-1].get_Weight(j);
                         int temp_Profit = item_Sets[i-1].get_Profit(j);
+                        //选中当前物品组的第i个数据时
                         if ((dynamic_Result_Array[i, col] - temp_Profit) == dynamic_Result_Array[i - 1, col - temp_Weight])
                         {
                             col -= temp_Weight;
@@ -209,6 +214,8 @@ namespace D_01_Bag
             }
 
         }
+
+        //获取动态规划法的结果（路径）字符串
         public string get_Dynamic_Result_Str()
         {
             string temp = "";
@@ -219,7 +226,5 @@ namespace D_01_Bag
             temp += selected_Items_Dynamic[item_Count - 1];
             return temp;
         }
-        
-
     }
 }
