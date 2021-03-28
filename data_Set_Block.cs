@@ -6,14 +6,24 @@ namespace D_01_Bag
 {
     public class data_Set_Block
     {
+        //数据集中的数据组数
         private int item_Count;
-        private int bag_Cubage;
+        //背包容量
+        private int bag_Cubage; 
+        //最优解
         private int best_Result;
+        //数据组集合
         private item_Set[] item_Sets;
+        //回溯法选择情况集
         private int[] selected_Items_Recall;
+        //选择情况——最终结果,即返回的结果
         private int[] temp_Selected;
+        //动态规划法的选择情况集合
         private int[] selected_Items_Dynamic;
+        //动态规划法的数组
         private int[,] dynamic_Result_Array;
+
+        //初始化数据集
         public data_Set_Block(int iC,int bC)
         {
             item_Count = iC;
@@ -25,11 +35,13 @@ namespace D_01_Bag
             best_Result = 0;
         }
 
+        //获取选择结果
         public int[] get_Selected_Array()
         {
             return temp_Selected;
         }
 
+        //动态规划法选择情况克隆到最终结果
         private void clone_To_Selected_Dy()
         {
             for(int i = 0; i < item_Count; i++)
@@ -38,6 +50,7 @@ namespace D_01_Bag
             }
         }
 
+        //回溯法选择情况克隆到最终结果
         private void clone_To_Selected_Rc()
         {
             for(int i = 0; i < item_Count; i++)
@@ -46,26 +59,31 @@ namespace D_01_Bag
             }
         }
 
+        //获取当前数据集共有多少组数据
         public int get_Item_Count()
         {
             return item_Count;
         }
 
+        //获取当前的第i组数据
         public item_Set get_Item(int i)
         {
             return item_Sets[i];
         }
 
+        //获取动态规划法的最优结果
         public int get_Dynamic_Result()
         {
             return dynamic_Result_Array[item_Count, bag_Cubage];
         }
 
+        //获取回溯法的最优结果
         public int get_Recall_Result()
         {
             return best_Result;
         }
 
+        //初始化价值和重量数组
         public void init_Item_Sets(int[] profit,int[] weight)
         {
             for(int i = 0; i < item_Count; i++)
@@ -77,14 +95,16 @@ namespace D_01_Bag
             }
         }
 
+        //动态规划法获取最优数据
         public void find_Max_Result_Dynamic_Programming()
         {
+            //首先初始化结果数组
             dynamic_Result_Array = new int[item_Count + 1, bag_Cubage + 1];
+            //存储几个选择的各自结果
             int num1 = 0;
             int num2 = 0;
             for (int row = 1; row < item_Count + 1; row ++)
             {
-
                 for(int col = 1; col < bag_Cubage + 1; col++)
                 {
                     for(int i = 0; i < 3; i++)
@@ -94,6 +114,7 @@ namespace D_01_Bag
                             num1 = dynamic_Result_Array[row - 1, col];
                             num2 = dynamic_Result_Array[row - 1, col - item_Sets[row - 1].get_Weight(i)] + item_Sets[row - 1].get_Profit(i);
                             num1 = Math.Max(num1, num2);
+                            //当前格子选取最大的
                             dynamic_Result_Array[row,col] = Math.Max(num1, dynamic_Result_Array[row, col]);
                         }
                         else
@@ -103,22 +124,30 @@ namespace D_01_Bag
                     }  
                 }
             }
+            //通过矩阵获得选择情况
             get_Result_Dynamic();
+            //将选择情况克隆
             clone_To_Selected_Dy();
         }
 
+        //回溯法求解最大结果
         public void find_Max_Result_Recall()
         {
+            //初始化选择数组
             for(int i = 0; i < item_Count; i++)
             {
                 selected_Items_Recall[i] = -1;
             }
+            //开始进行回溯
             back_Trace(0, 0, 0);
+            //将选择情况克隆
             clone_To_Selected_Rc();
         }
 
+        //递归函数
         private void back_Trace(int group_Id,int profit_Now,int weight_Now)
         {
+            //递归出口是当前深度到达最深
             if (group_Id == item_Count)
             {
                 if (profit_Now > best_Result)
@@ -133,7 +162,7 @@ namespace D_01_Bag
             }
             else
             {
-                
+
                 for(int i = 0; i < 3; i++)
                 {
                     temp_Selected[group_Id] = i;
@@ -147,6 +176,7 @@ namespace D_01_Bag
             }
         }
 
+        //求解选择情况
         private void get_Result_Dynamic()
         {
             int col = bag_Cubage;
@@ -163,7 +193,8 @@ namespace D_01_Bag
                 }
                 else
                 {
-                    for(int j = 0; j < 3; j++)
+                    //计算数据组选择的情况
+                    for (int j = 0; j < 3; j++)
                     {
                         int temp_Weight = item_Sets[i-1].get_Weight(j);
                         int temp_Profit = item_Sets[i-1].get_Profit(j);

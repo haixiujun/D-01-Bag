@@ -233,18 +233,21 @@ namespace D_01_Bag
             richTextBox1.Text = richTextBox1.Text.Substring(0, richTextBox1.Text.Length - 1);
         }
 
+        //显示当前选中数据集的散点图
         private void button4_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2(this, listBox1.SelectedIndex);
             form2.Show();
         }
 
+        //当前数据集按第三个数据的价值重量比进行非递增排序
         private void button5_Click(object sender, EventArgs e)
         {
             third_Sort third = new third_Sort(data_Sets[listBox1.SelectedIndex]);
             third.Show();
         }
 
+        //将数据输出到txt文件
         private void button6_Click(object sender, EventArgs e)
         {
             out_Put_Data out_Obj = new out_Put_Data(data_Sets[listBox1.SelectedIndex]);
@@ -253,6 +256,7 @@ namespace D_01_Bag
 
         }
 
+        //将数据输出到xlsx文件
         private void button7_Click(object sender, EventArgs e)
         {
             out_Put_Data out_Obj = new out_Put_Data(data_Sets[listBox1.SelectedIndex]);
