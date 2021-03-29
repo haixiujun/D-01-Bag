@@ -9,8 +9,11 @@ namespace D_01_Bag
 {
     class out_Put_Data
     {
+        //输出的文件路径
         private string file_Path;
+        //输出的数据块
         private data_Set_Block data_Set_Block;
+        //输出的数据块的选择数据
         private int[] selected;
         public out_Put_Data(data_Set_Block data)
         {
@@ -18,6 +21,7 @@ namespace D_01_Bag
             
         }
 
+        //输出到txt文件
         public void out_To_Txt(string path)
         {
             file_Path = path;
@@ -25,6 +29,7 @@ namespace D_01_Bag
             write_To_Txt();
         }
 
+        //输出到excel文件
         public void out_To_Excel(string path)
         {
             file_Path = path;
@@ -33,7 +38,7 @@ namespace D_01_Bag
 
         }
 
-
+        //向excel文件写入数据
         private void write_To_Excel()
         {
             int lines = data_Set_Block.get_Item_Count();
@@ -66,6 +71,7 @@ namespace D_01_Bag
             }
         }
 
+        //创建文件是否存在，若不存在则创建对应文件
         private void test_File_Exist_And_Create()
         {
             if (!File.Exists(file_Path))
@@ -75,6 +81,7 @@ namespace D_01_Bag
             }
         }
 
+        //向txt文件写入数据
         private void write_To_Txt()
         {
             int lines = data_Set_Block.get_Item_Count();
@@ -100,6 +107,7 @@ namespace D_01_Bag
             sr.Close();
         }
 
+        //获取txt文件的index行应写入的字符串
         private string get_Base_Data(int index)
         {
             string ret = "[";
