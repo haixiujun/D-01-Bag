@@ -202,6 +202,9 @@ namespace D_01_Bag
             textBox2.Text = data_Sets[index].get_Dynamic_Result().ToString();
             //显示结果
             richTextBox1.Text = data_Sets[index].get_Dynamic_Result_Str();
+
+            //计算总价值重量比
+            textBox4.Text = ((double)data_Sets[index].get_Recall_Result() / data_Sets[index].get_Bag_Cubage()).ToString();
         }
 
         //回溯法求解问题
@@ -231,6 +234,8 @@ namespace D_01_Bag
             }
             //去掉最后一个箭头
             richTextBox1.Text = richTextBox1.Text.Substring(0, richTextBox1.Text.Length - 1);
+            //计算总价值重量比
+            textBox4.Text = ((double)data_Sets[index].get_Recall_Result() / data_Sets[index].get_Bag_Cubage()).ToString();
         }
 
         //显示当前选中数据集的散点图

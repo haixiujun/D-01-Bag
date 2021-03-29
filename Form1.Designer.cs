@@ -45,6 +45,8 @@ namespace D_01_Bag
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBox1
@@ -181,11 +183,30 @@ namespace D_01_Bag
             this.label2.TabIndex = 13;
             this.label2.Text = "所用时间:";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(954, 270);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(83, 17);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "总价值重量比:";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(1043, 267);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(193, 23);
+            this.textBox4.TabIndex = 15;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 538);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button7);
@@ -225,6 +246,8 @@ namespace D_01_Bag
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }
 

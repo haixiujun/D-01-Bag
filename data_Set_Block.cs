@@ -49,6 +49,13 @@ namespace D_01_Bag
             return process_Time;
         }
 
+        //获取背包容量
+
+        public int get_Bag_Cubage()
+        {
+            return bag_Cubage;
+        }
+
         //动态规划法选择情况克隆到最终结果
         private void clone_To_Selected_Dy()
         {
@@ -106,6 +113,8 @@ namespace D_01_Bag
         //动态规划法获取最优数据
         public void find_Max_Result_Dynamic_Programming()
         {
+            best_Result = 0;
+            selected_Items_Dynamic = new int[item_Count];
             DateTime start_Time = DateTime.Now;
             //首先初始化结果数组
             dynamic_Result_Array = new int[item_Count + 1, bag_Cubage + 1];
@@ -146,12 +155,16 @@ namespace D_01_Bag
         //回溯法求解最大结果
         public void find_Max_Result_Recall()
         {
+            best_Result = 0;
             DateTime start_Time = DateTime.Now;
+            temp_Selected = new int[item_Count];
             //初始化选择数组
             for (int i = 0; i < item_Count; i++)
             {
                 selected_Items_Recall[i] = -1;
+                temp_Selected[i] = -1;
             }
+            
             //开始进行回溯
             back_Trace(0, 0, 0);
             //将选择情况克隆
@@ -182,7 +195,7 @@ namespace D_01_Bag
                 //在当前组分别进行下一步
                 for(int i = 0; i < 3; i++)
                 {
-                    temp_Selected[group_Id] = i;
+                    temp_Selected[group_Id] = i+1;
                     if (weight_Now+ item_Sets[group_Id].get_Weight(i) <= bag_Cubage)
                     {
                         back_Trace(group_Id + 1, profit_Now + item_Sets[group_Id].get_Profit(i), weight_Now + item_Sets[group_Id].get_Weight(i));
@@ -228,7 +241,6 @@ namespace D_01_Bag
                     }
                 }
             }
-
         }
 
         //获取动态规划法的结果（路径）字符串
